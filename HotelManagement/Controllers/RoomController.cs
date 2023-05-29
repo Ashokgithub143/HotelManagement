@@ -1,56 +1,56 @@
-﻿using HotelManagement.Modules;
-using HotelManagement.Repositories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿    using HotelManagement.Modules;
+    using HotelManagement.Repositories;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
 
-namespace HotelManagement.Controllers
-{
-    [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-
-    public class RoomController : ControllerBase
+    namespace HotelManagement.Controllers
     {
-        private readonly IRoom _RoomRepository;
+        [Authorize]
+        [Route("api/[controller]")]
+        [ApiController]
 
-        public RoomController(IRoom RoomRepository)
+        public class RoomController : ControllerBase
         {
-            _RoomRepository = RoomRepository;
-        }
-        [HttpGet]
-        public ActionResult<ICollection<Room>> GetAllHotels()
-        {
-            var hotels = _RoomRepository.GetAllRoom();
-            return Ok(hotels);
-        }
+            private readonly IRoom _RoomRepository;
 
-        [HttpGet("{id}")]
-        public ActionResult<ICollection<Room>> GetHotelById(int id)
-        {
-            var rooms = _RoomRepository.GetRoomById(id);
-            return Ok(rooms);
-        }
+            public RoomController(IRoom RoomRepository)
+            {
+                _RoomRepository = RoomRepository;
+            }
+            [HttpGet]
+            public ActionResult<ICollection<Room>> GetAllHotels()
+            {
+                var hotels = _RoomRepository.GetAllRoom();
+                return Ok(hotels);
+            }
 
-        [HttpPost]
-        public ActionResult<ICollection<Room>> CreateHotel(Room Rooms)
-        {
-            _RoomRepository.AddRoom(Rooms);
-            return Ok(Rooms);
-        }
+            [HttpGet("{id}")]
+            public ActionResult<ICollection<Room>> GetHotelById(int id)
+            {
+                var rooms = _RoomRepository.GetRoomById(id);
+                return Ok(rooms);
+            }
 
-        [HttpPut("{id}")]
-        public ActionResult<ICollection<Room>> UpdateHotel(int id, Room rooms)
-        {
-            _RoomRepository.UpdateRoom(rooms, id);
-            return Ok(rooms);
-        }
+            [HttpPost]
+            public ActionResult<ICollection<Room>> CreateHotel(Room Rooms)
+            {
+                _RoomRepository.AddRoom(Rooms);
+                return Ok(Rooms);
+            }
 
-        [HttpDelete("{id}")]
-        public ActionResult<ICollection<Room>> DeleteHotel(int id)
-        {
-            _RoomRepository.DeleteRoom(id);
-            return Ok(id);
+            [HttpPut("{id}")]
+            public ActionResult<ICollection<Room>> UpdateHotel(int id, Room rooms)
+            {
+                _RoomRepository.UpdateRoom(rooms, id);
+                return Ok(rooms);
+            }
+
+            [HttpDelete("{id}")]
+            public ActionResult<ICollection<Room>> DeleteHotel(int id)
+            {
+                _RoomRepository.DeleteRoom(id);
+                return Ok(id);
+            }
         }
     }
-}
